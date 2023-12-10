@@ -1,0 +1,121 @@
+#root {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  @apply text-white;
+}
+
+* {
+  box-sizing: border-box !important;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #131313;
+}
+
+/* Designing for scroll-bar */
+::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-border;
+  background-clip: padding-box;
+  border-left: 2px solid hsl(240 10% 3.9%) !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #131313;
+}
+
+::-webkit-scrollbar-corner {
+  background: rgba(0, 0, 0, 0);
+}
+
+.ProseMirror {
+  outline: none !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+.ProseMirror > * + * {
+  margin-top: 0.75em;
+}
+.ProseMirror blockquote {
+  @apply border-l-4 border-neutral-300/80;
+  padding-left: 1rem;
+}
+
+textarea {
+  scroll-padding: 0px !important;
+}
+
+.ProseMirror p {
+  font-size: .75rem;
+}
+
+.ProseMirror h1 {
+  font-size: 1.5rem;
+}
+
+.ProseMirror h2 {
+  font-size: 1.25rem;
+}
+
+.ProseMirror h3 {
+  font-size: 1.125rem;
+}
+
+.ProseMirror h4 {
+  font-size: 1rem;
+}
+
+mark {
+  @apply bg-yellow-200;
+  /* background-color: #ffe066; */
+  border-radius: 0.25em;
+  box-decoration-break: clone;
+  padding: 0.125em 0;
+}
+
+.leaflet-container {
+  height: 100%;
+  width: 700px;
+  z-index: 1;
+}
+
+.leaflet-bar a {
+  background-color: #1a1b1e;
+  color: white;
+  border-bottom: 1px solid #3a3a3a;
+}
+
+.leaflet-bar a.leaflet-disabled {
+  background-color: #1a1b1e;
+  color: rgb(139, 139, 139);
+}
+
+.leaflet-bar a:hover,
+.leaflet-bar a:focus {
+  background-color: rgb(42, 42, 42);
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background-color: #141517;
+  color: white;
+  border-radius: 6px;
+}
+
+.leaflet-popup-content {
+  margin: 10px 15px 10px 10px;
+  width: 195px;
+}
+
+.custom-icon {
+  @apply w-[20px] h-[20px] fill-zinc-800;
+}

@@ -1,0 +1,4 @@
+-- RegisterCommand("callsign_column", function()
+--     local result = MySQL.query.await("ALTER TABLE mdt_roster ADD COLUMN callsign VARCHAR(20) DEFAULT '0'")
+--     Shared:print(json.encode(result))
+-- end, true)

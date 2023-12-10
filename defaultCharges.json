@@ -1,0 +1,106 @@
+[
+  {
+    "id": 1,
+    "title": "First Degree Speeding",
+    "description": "Drives in excess of the speed limit by more than 55 miles per hour. Adds 3 points.",
+    "fine": "1125",
+    "months": "0",
+    "type": "0"
+  },
+  {
+    "id": 2,
+    "title": "Assault & Battery",
+    "description": "Openly threatens violoence or injury upon an individual either orally or through their actions and acts upon that threat.",
+    "fine": "1050",
+    "months": "11",
+    "type": "0"
+  },
+  {
+    "id": 3,
+    "title": "Criminal Threats",
+    "description": "A criminal threat is when you threaten to kill or physicall harm someone. That person is thereby placed in a state of reasonably sustained fear for his/her safety or for the safety of his/her immediate family, the threat is specific and unequivocal andyou communicate the threat verbally, in writing, or via an electronically transmitted device.",
+    "fine": "1325",
+    "months": "14",
+    "type": "0"
+  },
+  {
+    "id": 4,
+    "title": "Brandishing of a Firearm",
+    "description": "Displaying a firearm in public without a legal reason. 'Open Carry' is not a legal reason to have a weapon in your hand. To open carry, the weapon must be holstered or attached to a sling.",
+    "fine": "625",
+    "months": "7",
+    "type": "0"
+  },
+  {
+    "id": 5,
+    "title": "Unlawful Imprisonment",
+    "description": "Restricts a persons movement within any area without legal authority, justification, or the persons consent.",
+    "fine": "1125",
+    "months": "11",
+    "type": "1"
+  },
+  {
+    "id": 6,
+    "title": "Murder Of A Government Employee",
+    "description": "The intentional act that leads to the death of a Government Employee. The following titles qualify an individual as a government employee: Law Enforcement Officer, Emergency Medical Services Personnel, Doctor, Judge, Mayor, Deputy Mayor, and County Clerk.",
+    "fine": "1125",
+    "months": "60",
+    "type": "2"
+  },
+  {
+    "id": 7,
+    "title": "Grand Theft Auto",
+    "description": "Taking another person's vehicle without their consent.",
+    "fine": "1500",
+    "months": "9",
+    "type": "0"
+  },
+  {
+    "id": 8,
+    "title": "Driving Under the Influence (DUI)",
+    "description": "Operating a vehicle while under the influence of alcohol or drugs.",
+    "fine": "1000",
+    "months": "6",
+    "type": "0"
+  },
+  {
+    "id": 9,
+    "title": "Possession of Controlled Substance",
+    "description": "Having illegal drugs or narcotics in one's possession.",
+    "fine": "750",
+    "months": "4",
+    "type": "0"
+  },
+  {
+    "id": 10,
+    "title": "Breaking and Entering",
+    "description": "Illegally entering a building or property with the intent to commit a crime.",
+    "fine": "1250",
+    "months": "8",
+    "type": "1"
+  },
+  {
+    "id": 11,
+    "title": "Trespassing",
+    "description": "Entering or remaining on someone else's property without permission.",
+    "fine": "500",
+    "months": "3",
+    "type": "1"
+  },
+  {
+    "id": 12,
+    "title": "Public Intoxication",
+    "description": "Being visibly intoxicated in a public place.",
+    "fine": "250",
+    "months": "2",
+    "type": "1"
+  },
+  {
+    "id": 13,
+    "title": "Resisting Arrest",
+    "description": "Physically or verbally resisting a lawful arrest.",
+    "fine": "750",
+    "months": "5",
+    "type": "2"
+  }
+]
