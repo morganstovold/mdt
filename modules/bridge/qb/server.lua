@@ -1,11 +1,5 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 
-<<<<<<< HEAD
--- region Auth Module
-
----@param source number
----@diagnostic disable-next-line: duplicate-set-field
-=======
 -- region PreChecks
 
 function Server.Bridge.hireOfficers()
@@ -57,29 +51,10 @@ end, true)
 -- region Auth Module
 
 ---@param source number
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
 function Server.Bridge.Auth.Load(source)
     local user = QBCore.Functions.GetPlayer(source)
     if not user then return { error = true } end
 
-<<<<<<< HEAD
-    local reports = {}
-    local department = 'lspd'
-    local rank = user.PlayerData.job.grade.level
-    local callsign = "0"
-    if user.PlayerData.job.name == "police" then
-        local officer = Server.Bridge.Roster.Get(user.PlayerData.citizenid)
-
-        if officer then
-            department = officer.department
-            callsign = officer.callsign
-        end
-    end
-
-
-
-    return {
-=======
     if not IsAuthorized(user.PlayerData.job.name) then
         Shared:print("Unauthorized access attempt by " ..
             user.PlayerData.charinfo.firstname ..
@@ -101,7 +76,6 @@ function Server.Bridge.Auth.Load(source)
 
     return {
         authorized = true,
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
         reports = reports,
         language = Shared.language,
         jobs = Config.jobs,
@@ -109,29 +83,18 @@ function Server.Bridge.Auth.Load(source)
         certs = Config.certs,
         checklist = Config.checklist,
         departments = Config.departments,
-<<<<<<< HEAD
-=======
         charges = charges,
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
         user = {
             citizenid = user.PlayerData.citizenid,
             firstname = user.PlayerData.charinfo.firstname,
             lastname = user.PlayerData.charinfo.lastname,
-<<<<<<< HEAD
-            callsign = callsign,
-            department = department,
-            rank = rank,
-=======
             callsign = officer.callsign or "0",
             department = officer.department or "lspd",
             rank = user.PlayerData.job.grade.level,
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
         }
     }
 end
 
-<<<<<<< HEAD
-=======
 ---@param job string
 function IsAuthorized(job)
     for i = 1, #Config.jobs do
@@ -143,16 +106,11 @@ function IsAuthorized(job)
     return false
 end
 
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
 -- endregion Auth Module
 
 -- region Profiles Module
 
 ---@param value string
-<<<<<<< HEAD
----@diagnostic disable-next-line: duplicate-set-field
-=======
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
 function Server.Bridge.Profiles.Search(value)
     local query = [[
         SELECT
@@ -167,31 +125,18 @@ function Server.Bridge.Profiles.Search(value)
                 SELECT 1
                 FROM mdt_reports r
                 CROSS JOIN JSON_TABLE(r.offenders, '$[*]' COLUMNS (
-<<<<<<< HEAD
-                    citizenid INT PATH '$.citizenid',
-                    warrantDate DATETIME PATH '$.warrant'
-                )) jt
-                WHERE r.locked = 0
-                AND jt.citizenid = p.citizenid
-                AND jt.warrantDate > NOW()
-=======
                     citizenid VARCHAR(255) PATH '$.citizenid',
                     warrantDate VARCHAR(255) PATH '$.warrant'
                 )) jt
                 WHERE r.locked = 0
                 AND jt.citizenid = p.citizenid
                 AND STR_TO_DATE(SUBSTRING_INDEX(jt.warrantDate, ' ', 5), '%a %b %d %Y') > NOW()
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
             ) THEN true ELSE false END) AS hasWarrant
         FROM players p
         LEFT JOIN mdt_users mdp ON p.citizenid = mdp.identifier
         WHERE (LOWER(CONCAT(JSON_VALUE(p.charinfo, '$.firstname'), ' ', JSON_VALUE(p.charinfo, '$.lastname')))) LIKE :query
             OR p.citizenid LIKE :query
-<<<<<<< HEAD
-            OR lower(JSON_VALUE(p.job, '$.name')) LIKE :query;
-=======
             OR lower(JSON_VALUE(p.job, '$.name')) LIKE :query
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
     ]]
 
     local params = {
@@ -204,21 +149,13 @@ function Server.Bridge.Profiles.Search(value)
 end
 
 ---@param value number
-<<<<<<< HEAD
----@diagnostic disable-next-line: duplicate-set-field
-=======
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
 function Server.Bridge.Profiles.Get(value)
     local query = [[
         SELECT
             p.citizenid,
             JSON_VALUE(p.charinfo, '$.firstname') AS firstname,
             JSON_VALUE(p.charinfo, '$.lastname') AS lastname,
-<<<<<<< HEAD
-            JSON_VALUE(p.charinfo, '$.birthdate') AS birthdate,
-=======
             JSON_VALUE(p.charinfo, '$.birthdate') AS dob,
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
             JSON_VALUE(p.charinfo, '$.gender') AS gender,
             JSON_VALUE(p.charinfo, '$.phone') AS phone,
             JSON_VALUE(p.job, '$.name') AS job,
@@ -243,40 +180,23 @@ function Server.Bridge.Profiles.Get(value)
                         'id', r.id,
                         'title', r.title,
                         'officer', JSON_OBJECT('firstname', IFNULL(JSON_VALUE(oc.charinfo, '$.firstname'), 'unknown'), 'lastname', IFNULL(JSON_VALUE(oc.charinfo, '$.lastname'), 'unknown')),
-<<<<<<< HEAD
-                        'warrant', CASE WHEN off.warrant IS NOT NULL THEN off.warrant ELSE NULL END,
-=======
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
                         'charges', IFNULL(off.charges, NULL)
                     )
                 )
                 FROM mdt_reports r
                 LEFT JOIN (
-<<<<<<< HEAD
-                    SELECT id, officer_id, publisher
-                    FROM mdt_reports,
-                        JSON_TABLE(officers, "$[*]"
-                        COLUMNS (
-                            officer_id INT PATH "$.citizenid",
-=======
                     SELECT DISTINCT id, officer_id, publisher
                     FROM mdt_reports,
                         JSON_TABLE(officers, "$[*]"
                         COLUMNS (
                             officer_id VARCHAR(50) PATH "$.citizenid",
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
                             publisher BOOLEAN PATH "$.publisher"
                         )
                     ) AS json_table2
                 ) officers ON r.id = officers.id
                 LEFT JOIN players oc ON officers.officer_id = oc.citizenid
                 CROSS JOIN JSON_TABLE(r.offenders, '$[*]' COLUMNS (
-<<<<<<< HEAD
-                    citizenid INT PATH '$.citizenid',
-                    warrant INT PATH '$.warrant',
-=======
                     citizenid VARCHAR(255) PATH '$.citizenid',
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
                     charges JSON PATH '$.charges'
                 )) AS off
                 WHERE officers.publisher = true
@@ -285,11 +205,7 @@ function Server.Bridge.Profiles.Get(value)
         FROM players p
         LEFT JOIN mdt_users mdp ON p.citizenid = mdp.identifier
         WHERE p.citizenid = :id
-<<<<<<< HEAD
-        GROUP BY p.citizenid;
-=======
         GROUP BY p.citizenid
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
     ]]
 
     local params = {
@@ -316,14 +232,6 @@ function Server.Bridge.Profiles.Get(value)
     result.reports = json.decode(result.reports) or {}
 
     local convictions = {}
-<<<<<<< HEAD
-    for _, report in pairs(result.reports) do
-        local charges = json.decode(report.charges) or {}
-        for _, charge in pairs(charges) do
-            local found = false
-
-            for _, conviction in pairs(convictions) do
-=======
     for i = 1, #result.reports do
         local report = result.reports[i]
         local charges = json.decode(report.charges) or {}
@@ -333,7 +241,6 @@ function Server.Bridge.Profiles.Get(value)
 
             for k = 1, #convictions do
                 local conviction = convictions[k]
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
                 if conviction.charge.id == charge.id then
                     conviction.count = conviction.count + charge.count
                     found = true
@@ -342,17 +249,10 @@ function Server.Bridge.Profiles.Get(value)
             end
 
             if not found then
-<<<<<<< HEAD
-                table.insert(convictions, {
-                    charge = charge.charge,
-                    count = charge.count
-                })
-=======
                 convictions[#convictions + 1] = {
                     charge = charge.charge,
                     count = charge.count
                 }
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
             end
         end
     end
@@ -362,22 +262,10 @@ function Server.Bridge.Profiles.Get(value)
     return result
 end
 
-<<<<<<< HEAD
-exports('GetProfile', Server.Bridge.Profiles.Get)
-
----@param value table
----@diagnostic disable-next-line: duplicate-set-field
-function Server.Bridge.Profiles.Save(value)
-    if not value.id then return { error = true } end
-
-    Shared:print('[PROFILES] Saving profile for citizenid: ' .. value.id)
-
-=======
 ---@param value table
 function Server.Bridge.Profiles.Save(value)
     if not value.id then return { error = true } end
 
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
     local queries = {}
 
     if value.licenses then
@@ -392,17 +280,10 @@ function Server.Bridge.Profiles.Save(value)
 
         query = query .. ") WHERE citizenid = :id;"
 
-<<<<<<< HEAD
-        table.insert(queries, {
-            query = query,
-            values = params
-        })
-=======
         queries[#queries + 1] = {
             query = query,
             values = params
         }
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
     end
 
     local fields = {}
@@ -410,40 +291,24 @@ function Server.Bridge.Profiles.Save(value)
 
     for k, v in pairs(value) do
         if k ~= 'id' and k ~= 'licenses' and k ~= 'noEntry' then
-<<<<<<< HEAD
-            table.insert(fields, k .. ' = :' .. k)
-=======
             fields[#fields + 1] = k .. ' = :' .. k
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
             params[k] = type(v) == 'table' and json.encode(v) or v
         end
     end
 
-<<<<<<< HEAD
-    table.insert(queries, {
-        query = value.noEntry and [[
-            INSERT IGNORE INTO mdt_users (identifier, pfp, notes, gallery, updatedAt)
-            VALUES (:id, :pfp, :notes, :gallery, :updatedAt)
-=======
     if next(fields) ~= nil then
         queries[#queries + 1] = {
             query = value.noEntry and [[
             INSERT IGNORE INTO mdt_users (identifier, pfp, notes, gallery)
             VALUES (:id, :pfp, :notes, :gallery)
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
         ]] or [[
             UPDATE mdt_users
             SET ]] .. table.concat(fields, ', ') .. [[
             WHERE identifier = :id
         ]],
-<<<<<<< HEAD
-        values = params
-    })
-=======
             values = params
         }
     end
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
 
     local success = MySQL.transaction.await(queries)
 
@@ -452,12 +317,6 @@ end
 
 -- endregion Profiles Module
 
-<<<<<<< HEAD
--- region Roster Module
-
----@param value string
----@diagnostic disable-next-line: duplicate-set-field
-=======
 -- region Reports Module
 
 ---@param value string
@@ -771,7 +630,6 @@ end
 -- region Roster Module
 
 ---@param value string
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
 function Server.Bridge.Roster.Search(value)
     local jobs = '"' .. table.concat(Config.jobs, '", "') .. '"'
     local query = [[
@@ -808,10 +666,6 @@ function Server.Bridge.Roster.Search(value)
 end
 
 ---@param value string
-<<<<<<< HEAD
----@diagnostic disable-next-line: duplicate-set-field
-=======
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
 function Server.Bridge.Roster.Get(value)
     local query = [[
         SELECT
@@ -827,11 +681,7 @@ function Server.Bridge.Roster.Get(value)
             COALESCE(mdp.pfp, 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png') AS pfp,
             mdo.createdAt AS time,
             mdo.updatedAt,
-<<<<<<< HEAD
-            JSON_OBJECT('pfp', op.pfp, 'citizenid', o.citizenid, 'firstname', JSON_VALUE(o.charinfo, '$.firstname'), 'lastname', JSON_VALUE(p.charinfo, '$.lastname'), 'callsign', opp.callsign, 'department', opp.department, 'rank', JSON_VALUE(p.job, '$.grade.level')) AS hiredBy,
-=======
             JSON_OBJECT('pfp', op.pfp, 'citizenid', IFNULL(o.citizenid, mdo.hiredBy), 'firstname', JSON_VALUE(o.charinfo, '$.firstname'), 'lastname', JSON_VALUE(o.charinfo, '$.lastname'), 'callsign', opp.callsign, 'department', opp.department, 'rank', JSON_VALUE(o.job, '$.grade.level')) AS hiredBy,
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
             (
                 SELECT JSON_ARRAYAGG(
                     JSON_OBJECT(
@@ -874,10 +724,6 @@ function Server.Bridge.Roster.Get(value)
 end
 
 ---@param value table
-<<<<<<< HEAD
----@diagnostic disable-next-line: duplicate-set-field
-=======
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
 function Server.Bridge.Roster.Save(value)
     if not value.citizenid then
         return {
@@ -906,74 +752,41 @@ function Server.Bridge.Roster.Save(value)
 
     for k, v in pairs(value) do
         if k ~= 'citizenid' and k ~= 'rank' then
-<<<<<<< HEAD
-            table.insert(fields, k .. ' = :' .. k)
-=======
             fields[#fields + 1] = k .. ' = :' .. k
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
             params[k] = type(v) == 'table' and json.encode(v) or v
         end
     end
 
     if value.noEntry then
-<<<<<<< HEAD
-        table.insert(queries, {
-=======
         queries[#queries + 1] = {
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
             query = [[
                 INSERT IGNORE INTO mdt_roster (identifier, department, certs, checklist, callsign, hiredBy)
                 VALUES (:citizenid, :department, :certs, :checklist, :callsign, :hiredBy)
             ]],
             values = params
-<<<<<<< HEAD
-        })
-=======
         }
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
 
         user.Functions.SetJob('police', value.rank)
     else
         if #fields > 0 then
-<<<<<<< HEAD
-            table.insert(queries, {
-=======
             queries[#queries + 1] = {
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
                 query = [[
                     UPDATE mdt_roster
                     SET ]] .. table.concat(fields, ', ') .. [[
                     WHERE identifier = :citizenid
                 ]],
                 values = params
-<<<<<<< HEAD
-            })
-=======
             }
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
         end
     end
 
     local success = MySQL.transaction.await(queries)
 
-<<<<<<< HEAD
-    Shared:print('[ROSTER] Saved row for citizenid: ' .. value.citizenid, success and 'success' or 'error')
-
-=======
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
     return success and {} or {
         error = true
     }
 end
 
-<<<<<<< HEAD
----@param value string
----@diagnostic disable-next-line: duplicate-set-field
-function Server.Bridge.Roster.Fire(value)
-    local queries = {}
-
-    table.insert(queries, {
-=======
 RegisterCommand("hireOfficer", function(source, args)
     local cid = args[1]
     if not cid then return end
@@ -1009,7 +822,6 @@ function Server.Bridge.Roster.Fire(value)
     local queries = {}
 
     queries[#queries + 1] = {
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
         query = [[
             DELETE FROM mdt_roster
             WHERE identifier = :citizenid
@@ -1017,11 +829,7 @@ function Server.Bridge.Roster.Fire(value)
         values = {
             citizenid = value
         }
-<<<<<<< HEAD
-    })
-=======
     }
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
 
     local user = QBCore.Functions.GetPlayerByCitizenId(value)
     if not user then
@@ -1046,23 +854,6 @@ end
 -- region Utils Module
 
 ---@param licenses table
-<<<<<<< HEAD
----@diagnostic disable-next-line: duplicate-set-field
-function Server.Bridge.Utils.FormatLicenses(licenses)
-    -- -> {"driver":true,"weapon":false}
-    -- -> {{name: 'driver', active: true}, {name: 'weapon', active: false}}
-    local formatted
-
-    for k, v in pairs(licenses) do
-        if not formatted then
-            formatted = {}
-        end
-
-        table.insert(formatted, {
-            name = k,
-            active = v
-        })
-=======
 function Server.Bridge.Utils.FormatLicenses(licenses)
     -- -> {"driver":true,"weapon":false}
     -- -> {{name: 'driver', active: true}, {name: 'weapon', active: false}}
@@ -1073,27 +864,18 @@ function Server.Bridge.Utils.FormatLicenses(licenses)
             name = k,
             active = v
         }
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
     end
 
     return formatted
 end
 
 ---@param licenses table
-<<<<<<< HEAD
----@diagnostic disable-next-line: duplicate-set-field
-=======
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
 function Server.Bridge.Utils.UnFormatLicenses(licenses)
     -- -> {{name: 'driver', active: true}, {name: 'weapon', active: false}}
     -- -> {"driver":true,"weapon":false}
     local formatted = {}
 
-<<<<<<< HEAD
-    for _, v in pairs(licenses) do
-=======
     for k, v in ipairs(licenses) do
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
         formatted[v.name] = v.active
     end
 

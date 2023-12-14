@@ -1,12 +1,7 @@
 Shared = {
     resource = GetCurrentResourceName(),
-<<<<<<< HEAD
-    framework = GetConvar('mdt:framework', 'qb'), -- 'esx', 'qb', 'custom' | to add a new framework create a 'modules\bridge\{framework}\sv_bridge.lua' and add the required functions
-    language = GetConvar("mdt:language", "en"),       -- 'en', 'fr', 'de', 'es',
-=======
     framework = Config.framework,
     language = Config.language,
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
 }
 
 function Shared:print(...)
@@ -30,9 +25,5 @@ if IsDuplicityVersion() then
         Settings = {},
     }
 else
-<<<<<<< HEAD
-    PlayerData = {}
-=======
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
     Client = {}
 end

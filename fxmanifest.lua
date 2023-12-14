@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 ---@diagnostic disable: undefined-global
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
 fx_version 'cerulean'
 use_experimental_fxv2_oal 'yes'
 lua54 'yes'
@@ -36,10 +33,7 @@ server_scripts {
 client_script {
     './modules/**/cl_*.lua',
 }
-<<<<<<< HEAD
-=======
 
 escrow_ignore {
     '**/*'
 }
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e

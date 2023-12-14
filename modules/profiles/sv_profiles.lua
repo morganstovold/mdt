@@ -24,8 +24,6 @@ OnEvent("profiles:save", function(source, resp, data)
     resp(result)
 end)
 
-<<<<<<< HEAD
-=======
 ---@param identifier string
 ---@return number
 exports("CreateProfile", function(identifier)
@@ -46,7 +44,6 @@ exports("CreateProfile", function(identifier)
     return result
 end)
 
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
 ---@param source number
 ---@param resp function
 ---@param data string

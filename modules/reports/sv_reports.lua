@@ -42,32 +42,3 @@ OnEvent("reports:recent", function(source, resp, data)
     local result = Server.Bridge.Reports.Search("", true)
     resp(result)
 end)
-<<<<<<< HEAD
-
----@param source number
----@param resp function
----@param data number
-OnEvent("reports:locker", function(source, resp, data)
-    local result = Server.Bridge.Reports.Locker(data)
-    resp(result)
-end)
-
--- OnEvent("reports:openEvidence", function(source, resp, data)
---     if data.id == 'new' then TriggerClientEvent('DoLongHudText', source, 'You cannot open this evidence locker as the report is not yet fully made.', 2) return resp('ok') end
-
---     local result = Server.Bridge.Reports.OpenEvidence(data)
---     if result then
---         TriggerClientEvent('mdt:close', source)
---         Citizen.Wait(500)
---         TriggerClientEvent('moment-mdt:OpenEvidence', source, {
---             uuid = data.id,
---             type = 'evidence',
---         })
---         resp('ok')
---         return
---     end
-    
---     resp('error')
--- end)
-=======
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e

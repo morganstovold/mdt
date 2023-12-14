@@ -1,9 +1,4 @@
-<<<<<<< HEAD
----@diagnostic disable-next-line: lowercase-global
-function uuidv4()
-=======
 local function uuidv4()
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
     local template = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
     return string.gsub(template, '[xy]', function(c)
         local v = (c == 'x') and math.random(0, 0xf) or math.random(8, 0xb)
@@ -29,11 +24,8 @@ if IsDuplicityVersion() then
             local rateLimiter = RateLimiter.limits[event]
             rateLimiter.limiters[src] = true
 
-<<<<<<< HEAD
-=======
             print(json.encode(rateLimiter))
 
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
             SetTimeout(rateLimiter.options.limit or RateLimiter.limit, function()
                 rateLimiter.limiters[src] = nil
             end)
@@ -42,11 +34,7 @@ if IsDuplicityVersion() then
 
     --- @param name string
     --- @param cb function
-<<<<<<< HEAD
-    --- @param rateLimit? table<string, number>
-=======
     --- @param rateLimit? number
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
     function OnEvent(name, cb, rateLimit)
         if rateLimit then
             RateLimiter.registerNewEvent(name, { limit = rateLimit })
@@ -71,11 +59,7 @@ if IsDuplicityVersion() then
             if rateLimit then
                 if RateLimiter.isPlayerRateLimited(name, src) then
                     return promiseResponse({
-<<<<<<< HEAD
-                        status = "error",
-=======
                         status = "rate_limited",
->>>>>>> 2b921bce8915dc91717b2f9bd749a5044c62e40e
                         error = true
                     })
                 else
